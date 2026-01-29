@@ -121,18 +121,20 @@ const offers = {
         ]
     },
     5: {
-        title: 'Sistem Alarmă & Securitate',
+        title: 'Sistem Panouri Fotovoltaice',
         subtitle: 'Prețurile sunt orientative și pot varia în funcție de specificațiile proiectului.',
-        price: 'Contactează-mă pentru ofertă',
-        description: 'Protecție completă antiefracție',
+        price: 'Contactă-mă pentru ofertă',
+        description: 'Sistem complet de energie solară rezidențial',
         features: [
-            '✓ Centrală Alarmă Wireless/Cablată',
-            '✓ 5-10 Senzori Mișcare & Uși/Ferestre',
-            '✓ Sirenă Interioară & Exterioară',
-            '✓ Notificări Instant pe Mobil',
-            '✓ Integrare CCTV (Opțional)',
-            '✓ Instalare Profesională',
-            '✓ Garanție 2 Ani'
+            '✓ Panouri Fotovoltaice de Înaltă Eficiență',
+            '✓ Invertor de Rețea cu Monitorizare',
+            '✓ Baterii de Stocare (Opțional)',
+            '✓ Sistem de Montaj pe Acoperș sau Sol',
+            '✓ Configurare și Conectare la Rețea',
+            '✓ Aplicație Mobil de Monitorizare',
+            '✓ Garanție 10 Ani Panouri & 5 Ani Invertor',
+            '✓ Suport pentru Program Casa Verde',
+            '✓ Consultanță Gratuită & Proiectare'
         ]
     }
 };
@@ -178,8 +180,16 @@ function showOffer(projectIndex) {
         };
     }
     
+    // Save scroll position
+    const scrollY = window.scrollY;
+    document.body.style.top = `-${scrollY}px`;
+    
     modal.classList.add('active');
-    document.body.style.overflow = 'hidden';
+    document.body.classList.add('modal-open');
+    
+    // Focus trap for accessibility
+    const closeBtn = modal.querySelector('.close-offer');
+    if (closeBtn) closeBtn.focus();
 }
 
 function closeOffer() {
@@ -187,7 +197,12 @@ function closeOffer() {
     if (!modal) return;
     
     modal.classList.remove('active');
-    document.body.style.overflow = 'auto';
+    document.body.classList.remove('modal-open');
+    
+    // Restore scroll position
+    const scrollY = document.body.style.top;
+    document.body.style.top = '';
+    window.scrollTo(0, parseInt(scrollY || '0') * -1);
 }
 
 // Scroll Reveal Animation with throttling
@@ -251,19 +266,34 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
-    // Setup project cards
+    // Setup project cards with improved event handling
     const projectCards = document.querySelectorAll('.project-card');
     projectCards.forEach((card, index) => {
-        card.addEventListener('click', function() {
+        // Prevent image dragging which can interfere with clicks
+        const img = card.querySelector('img');
+        if (img) {
+            img.addEventListener('dragstart', (e) => e.preventDefault());
+            img.addEventListener('contextmenu', (e) => e.preventDefault());
+        }
+        
+        card.addEventListener('click', function(e) {
+            e.preventDefault();
             showOffer(index);
         });
     });
     
-    // Close modal when clicking outside
+    // Close modal when clicking outside or pressing Escape
     const modal = document.getElementById('offerModal');
     if (modal) {
         modal.addEventListener('click', function(e) {
             if (e.target === modal) {
+                closeOffer();
+            }
+        });
+        
+        // Keyboard support for closing modal
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape' && modal.classList.contains('active')) {
                 closeOffer();
             }
         });

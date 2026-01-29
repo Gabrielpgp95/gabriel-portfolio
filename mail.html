@@ -136,10 +136,6 @@
                 transform: translateY(0);
             }
         }
-            box-shadow: 0 0 15px rgba(102, 126, 234, 0.4);
-            background: white;
-            transform: translateY(-2px);
-        }
 
         textarea {
             resize: vertical;
@@ -208,6 +204,88 @@
             transform: translateY(-2px);
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
         }
+
+        @media (max-width: 768px) {
+            body {
+                padding: 1rem;
+            }
+
+            .container {
+                padding: 1.5rem;
+                border-radius: 12px;
+            }
+
+            h1 {
+                font-size: 1.75rem;
+            }
+
+            input[type="email"],
+            input[type="tel"],
+            input[type="text"],
+            textarea,
+            select {
+                padding: 0.7rem;
+                font-size: 16px;
+            }
+
+            .btn {
+                padding: 0.9rem;
+                font-size: 1rem;
+            }
+
+            .back-btn {
+                padding: 0.6rem 1.2rem;
+                font-size: 0.9rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            body {
+                padding: 0.5rem;
+            }
+
+            .container {
+                padding: 1.2rem;
+                border-radius: 10px;
+            }
+
+            h1 {
+                font-size: 1.5rem;
+                margin-bottom: 1rem;
+            }
+
+            .form-group {
+                margin-bottom: 1.2rem;
+            }
+
+            label {
+                font-size: 0.95rem;
+            }
+
+            input[type="email"],
+            input[type="tel"],
+            input[type="text"],
+            textarea,
+            select {
+                padding: 0.65rem;
+                font-size: 16px;
+            }
+
+            textarea {
+                min-height: 120px;
+            }
+
+            .btn {
+                padding: 0.85rem;
+                font-size: 0.95rem;
+            }
+
+            .back-btn {
+                padding: 0.55rem 1rem;
+                font-size: 0.85rem;
+                margin-top: 0.8rem;
+            }
+        }
     </style>
 </head>
 <body>
@@ -228,7 +306,7 @@
                     <option value="Sistem Parcare Inteligent">🚗 Sistem Parcare Inteligent</option>
                     <option value="Porți Automate Premium">🏠 Porți Automate Premium</option>
                     <option value="Contract Mentenanță">🔧 Contract Mentenanță</option>
-                    <option value="Sistem Alarmă Antiefracție">🔔 Sistem Alarmă Antiefracție</option>
+                    <option value="Panouri Fotovoltaice">☀️ Panouri Fotovoltaice</option>
                     <option value="custom">✏️ Subiect Personalizat</option>
                 </select>
             </div>
@@ -277,7 +355,7 @@
                 '2': 'Sistem Parcare Inteligent',
                 '3': 'Porți Automate Premium',
                 '4': 'Contract Mentenanță',
-                '5': 'Sistem Alarmă Antiefracție'
+                '5': 'Panouri Fotovoltaice'
             };
             
             const projectValue = projectMapping[projectParam];
