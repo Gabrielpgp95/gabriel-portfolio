@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contactează-mă - Gabriel</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 2rem;
+            animation: fadeIn 0.5s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            animation: slideUp 0.6s ease-out;
+            transition: transform 0.3s ease;
+        }
+
+        .container:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(102, 126, 234, 0.3);
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        h1 {
+            background: linear-gradient(45deg, #667eea, #764ba2, #667eea);
+            background-size: 200% auto;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 1.5rem;
+            text-align: center;
+            animation: gradientFlow 3s linear infinite;
+        }
+
+        @keyframes gradientFlow {
+            0% { background-position: 0% center; }
+            100% { background-position: 200% center; }
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: #333;
+            font-weight: bold;
+        }
+
+        input[type="email"],
+        input[type="tel"],
+        input[type="text"],
+        textarea,
+        select {
+            width: 100%;
+            padding: 0.8rem;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-family: inherit;
+            transition: all 0.3s ease;
+            background: #f9f9f9;
+        }
+
+        input[type="email"]:focus,
+        input[type="tel"]:focus,
+        input[type="text"]:focus,
+        textarea:focus,
+        select:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 15px rgba(102, 126, 234, 0.4);
+            background: white;
+            transform: translateY(-2px);
+        }
+
+        select {
+            cursor: pointer;
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23667eea' d='M6 9L1 4h10z'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 1rem center;
+            padding-right: 2.5rem;
+        }
+
+        #customSubject {
+            display: none;
+            margin-top: 0.5rem;
+        }
+
+        #customSubject.show {
+            display: block;
+            animation: slideDown 0.3s ease;
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+            box-shadow: 0 0 15px rgba(102, 126, 234, 0.4);
+            background: white;
+            transform: translateY(-2px);
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 150px;
+        }
+
+        .btn {
+            display: inline-block;
+            width: 100%;
+            padding: 1rem;
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            color: white;
+            text-decoration: none;
+            border-radius: 25px;
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.3);
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
+        }
+
+        .btn:hover {
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: 0 10px 25px rgba(118, 75, 162, 0.6);
+        }
+
+        .btn:hover::before {
+            width: 400px;
+            height: 400px;
+        }
+
+        .btn:active {
+            transform: translateY(-1px) scale(0.98);
+        }
+
+        .back-btn {
+            display: inline-block;
+            margin-top: 1rem;
+            padding: 0.7rem 1.5rem;
+            background: linear-gradient(45deg, #999, #666);
+            color: white;
+            text-decoration: none;
+            border-radius: 20px;
+            transition: all 0.3s ease;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .back-btn:hover {
+            background: linear-gradient(45deg, #777, #555);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Contactează-mă</h1>
+        <form action="https://api.web3forms.com/submit" method="POST">
+            <!-- Web3Forms Access Key - Get yours free at https://web3forms.com -->
+            <input type="hidden" name="access_key" value="5321c392-1182-43f6-b385-3c56aa24298e">
+            <input type="hidden" name="subject" id="finalSubject" value="Nouă Solicitare de Contact din Portofoliu">
+            <input type="hidden" name="from_name" value="Formular Contact Gabriel">
+            
+            <div class="form-group">
+                <label for="subjectSelect">Subiect / Tip Proiect *</label>
+                <select id="subjectSelect" name="project_type" required>
+                    <option value="">Selectează un subiect...</option>
+                    <option value="Sistem CCTV HD/4K">🎥 Sistem CCTV HD/4K</option>
+                    <option value="Uși Automate Inteligente">🚪 Uși Automate Inteligente</option>
+                    <option value="Sistem Parcare Inteligent">🚗 Sistem Parcare Inteligent</option>
+                    <option value="Porți Automate Premium">🏠 Porți Automate Premium</option>
+                    <option value="Contract Mentenanță">🔧 Contract Mentenanță</option>
+                    <option value="Sistem Alarmă Antiefracție">🔔 Sistem Alarmă Antiefracție</option>
+                    <option value="custom">✏️ Subiect Personalizat</option>
+                </select>
+            </div>
+
+            <div class="form-group" id="customSubject">
+                <label for="customSubjectInput">Subiect Personalizat *</label>
+                <input type="text" id="customSubjectInput" name="custom_subject" placeholder="Introdu subiectul tău...">
+            </div>
+
+            <div class="form-group">
+                <label for="email">Email-ul Tău *</label>
+                <input type="email" id="email" name="email" required placeholder="emailul@tau.com">
+            </div>
+
+            <div class="form-group">
+                <label for="phone">Numărul Tău de Telefon *</label>
+                <input type="tel" id="phone" name="phone" required placeholder="+40 123 456 789">
+            </div>
+
+            <div class="form-group">
+                <label for="project">Detalii Proiect *</label>
+                <textarea id="project" name="message" required placeholder="Descrie proiectul tău..."></textarea>
+            </div>
+
+            <button type="submit" class="btn">Trimite Mesaj</button>
+            <a href="gabriel.html" class="back-btn">Înapoi la Portofoliu</a>
+        </form>
+    </div>
+
+    <script>
+        const subjectSelect = document.getElementById('subjectSelect');
+        const customSubjectDiv = document.getElementById('customSubject');
+        const customSubjectInput = document.getElementById('customSubjectInput');
+        const finalSubjectField = document.getElementById('finalSubject');
+        const form = document.querySelector('form');
+
+        // Auto-select project type from URL parameter
+        const urlParams = new URLSearchParams(window.location.search);
+        const projectParam = urlParams.get('project');
+        
+        if (projectParam !== null) {
+            // Map project index to select option value
+            const projectMapping = {
+                '0': 'Sistem CCTV HD/4K',
+                '1': 'Uși Automate Inteligente',
+                '2': 'Sistem Parcare Inteligent',
+                '3': 'Porți Automate Premium',
+                '4': 'Contract Mentenanță',
+                '5': 'Sistem Alarmă Antiefracție'
+            };
+            
+            const projectValue = projectMapping[projectParam];
+            if (projectValue) {
+                subjectSelect.value = projectValue;
+            }
+        }
+
+        // Show/hide custom subject field
+        subjectSelect.addEventListener('change', function() {
+            if (this.value === 'custom') {
+                customSubjectDiv.classList.add('show');
+                customSubjectInput.required = true;
+            } else {
+                customSubjectDiv.classList.remove('show');
+                customSubjectInput.required = false;
+                customSubjectInput.value = '';
+            }
+        });
+
+        // Update the hidden subject field before form submission
+        form.addEventListener('submit', function(e) {
+            e.preventDefault(); // Prevent default submission
+            
+            const selectedSubject = subjectSelect.value;
+            
+            if (selectedSubject === 'custom') {
+                if (customSubjectInput.value.trim()) {
+                    finalSubjectField.value = customSubjectInput.value.trim();
+                } else {
+                    alert('Te rog introdu un subiect personalizat!');
+                    return false;
+                }
+            } else if (selectedSubject) {
+                finalSubjectField.value = selectedSubject;
+            } else {
+                alert('Te rog selectează un subiect!');
+                return false;
+            }
+            
+            // Submit form via AJAX
+            const formData = new FormData(form);
+            
+            fetch('https://api.web3forms.com/submit', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    // Redirect to homepage on success
+                    window.location.href = 'gabriel.html';
+                } else {
+                    alert('A apărut o eroare. Te rog încearcă din nou.');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('A apărut o eroare la trimiterea formularului.');
+            });
+        });
+    </script>
+</body>
+</html>

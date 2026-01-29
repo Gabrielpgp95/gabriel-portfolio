@@ -1,0 +1,786 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gabriel - Portfolio</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* Scroll Reveal Animation */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 1s ease-out;
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        header {
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(10px);
+            color: white;
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        header:hover {
+            background: rgba(0, 0, 0, 0.9);
+        }
+
+        nav {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 2rem;
+        }
+
+        .logo {
+            font-size: 2rem;
+            font-weight: bold;
+            background: linear-gradient(45deg, #fff, #667eea, #764ba2);
+            background-size: 200% 200%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: gradientShift 3s ease infinite;
+        }
+
+        @keyframes gradientShift {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            padding: 0.6rem 1.2rem;
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.2), rgba(118, 75, 162, 0.2));
+            border-radius: 25px;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            font-weight: 500;
+            position: relative;
+            overflow: hidden;
+            display: inline-block;
+            backdrop-filter: blur(5px);
+        }
+
+        .nav-links a::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.6), rgba(118, 75, 162, 0.6));
+            border-radius: 25px;
+            transition: left 0.4s ease;
+            z-index: -1;
+        }
+
+        .nav-links a:hover {
+            border-color: rgba(255, 255, 255, 0.8);
+            color: white;
+            transform: translateY(-2px) scale(1.05);
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.5);
+        }
+
+        .nav-links a:hover::before {
+            left: 0;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .hero {
+            text-align: center;
+            color: white;
+            padding: 4rem 2rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 1px, transparent 1px);
+            background-size: 50px 50px;
+            animation: particleFloat 20s linear infinite;
+        }
+
+        @keyframes particleFloat {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(50px, 50px); }
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            animation: slideDown 1s ease-out;
+            text-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            margin-bottom: 2rem;
+            animation: slideUp 1s ease-out;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 0.8rem 2rem;
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            color: white;
+            text-decoration: none;
+            border-radius: 25px;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+            z-index: 1;
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.3);
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
+        }
+
+        .btn:hover {
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 8px 25px rgba(118, 75, 162, 0.6);
+        }
+
+        .btn:hover::before {
+            width: 300px;
+            height: 300px;
+        }
+
+        .section {
+            background: white;
+            margin: 2rem 0;
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            position: relative;
+            top: -2cm;
+        }
+
+        .section:hover {
+            box-shadow: 0 8px 20px rgba(102, 126, 234, 0.3);
+            transform: translateY(-2px);
+        }
+
+        .section h2 {
+            color: #667eea;
+            margin-bottom: 1.5rem;
+            font-size: 2rem;
+        }
+
+        .projects {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .project-card {
+            background: #f4f4f4;
+            padding: 1.5rem;
+            border-radius: 10px;
+            border-left: 4px solid #667eea;
+            transition: all 0.4s ease;
+            overflow: hidden;
+            position: relative;
+            cursor: pointer;
+        }
+
+        .project-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(102, 126, 234, 0.1), transparent);
+            transition: left 0.5s;
+        }
+
+        .project-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 15px 35px rgba(102, 126, 234, 0.3);
+            border-left-width: 8px;
+        }
+
+        .project-card:hover::before {
+            left: 100%;
+        }
+
+        .project-card img {
+            transition: transform 0.4s ease;
+        }
+
+        .project-card:hover img {
+            transform: scale(1.1);
+        }
+
+        .project-card h3 {
+            color: #667eea;
+            margin-bottom: 0.5rem;
+        }
+
+        footer {
+            background: rgba(0, 0, 0, 0.8);
+            color: white;
+            text-align: center;
+            padding: 2rem;
+            margin-top: 2rem;
+        }
+
+        /* Offer Modal Styles */
+        .offer-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 1000;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .offer-modal.active {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .offer-content {
+            background: white;
+            padding: 2.5rem;
+            border-radius: 15px;
+            max-width: 500px;
+            width: 90%;
+            position: relative;
+            animation: slideUp 0.4s ease;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .close-offer {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            font-size: 2rem;
+            cursor: pointer;
+            color: #667eea;
+            transition: all 0.3s ease;
+            width: 35px;
+            height: 35px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            background: rgba(102, 126, 234, 0.1);
+        }
+
+        .close-offer:hover {
+            background: #667eea;
+            color: white;
+            transform: rotate(90deg);
+        }
+
+        .offer-content h2 {
+            color: #667eea;
+            margin-bottom: 1rem;
+            font-size: 1.8rem;
+        }
+
+        .offer-content .price {
+            font-size: 2.5rem;
+            color: #764ba2;
+            font-weight: bold;
+            margin: 1rem 0;
+        }
+
+        .offer-content ul {
+            list-style: none;
+            padding: 0;
+            margin: 1.5rem 0;
+        }
+
+        .offer-content ul li {
+            padding: 0.5rem 0;
+            border-bottom: 1px solid #eee;
+        }
+
+        .offer-content ul li::before {
+            content: '✓ ';
+            color: #667eea;
+            font-weight: bold;
+            margin-right: 0.5rem;
+        }
+
+        .offer-btn {
+            display: inline-block;
+            width: 100%;
+            padding: 1rem;
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            color: white;
+            text-decoration: none;
+            border-radius: 25px;
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: bold;
+            margin-top: 1rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        .offer-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(118, 75, 162, 0.6);
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @media (max-width: 768px) {
+            header {
+                padding: 0.6rem 0;
+                background: rgba(0, 0, 0, 0.7);
+            }
+
+            nav {
+                padding: 0 0.8rem;
+            }
+
+            .logo {
+                font-size: 1.2rem;
+            }
+
+            .nav-links {
+                gap: 0.8rem;
+                font-size: 0.9rem;
+            }
+
+            .container {
+                padding: 1rem;
+            }
+
+            .hero {
+                padding: 2rem 1rem;
+            }
+
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .hero p {
+                font-size: 1rem;
+            }
+
+            .section {
+                margin: 1.5rem 0;
+                padding: 1.5rem;
+                top: 0;
+            }
+
+            .section h2 {
+                font-size: 1.5rem;
+                margin-bottom: 1rem;
+            }
+
+            .offer-content {
+                padding: 1.5rem;
+                max-width: 90%;
+                width: 90%;
+            }
+
+            .offer-content h2 {
+                font-size: 1.5rem;
+            }
+
+            .offer-content .price {
+                font-size: 2rem;
+            }
+
+            /* Ensure modals work on mobile */
+            .offer-modal {
+                display: none;
+            }
+
+            .offer-modal.active {
+                display: flex !important;
+                justify-content: center;
+                align-items: center;
+                z-index: 10000;
+            }
+
+            #phoneModal.active,
+            #offerModal.active {
+                display: flex !important;
+            }
+
+            .projects {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+
+            footer {
+                padding: 1.5rem;
+            }
+
+            /* Show all content immediately on mobile but keep animations */
+            .reveal {
+                opacity: 1;
+                transform: translateY(0);
+            }
+
+            .reveal.active {
+                animation: mobileReveal 0.6s ease-out;
+            }
+
+            @keyframes mobileReveal {
+                from {
+                    opacity: 0.7;
+                    transform: translateY(15px);
+                }
+                to {
+                    opacity: 1;
+                    transform: translateY(0);
+                }
+            }
+        }
+
+        @media (max-width: 480px) {
+            header {
+                padding: 0.4rem 0;
+                background: rgba(0, 0, 0, 0.65);
+            }
+
+            nav {
+                flex-direction: column;
+                gap: 0.5rem;
+                padding: 0.3rem 0.5rem;
+            }
+
+            .logo {
+                font-size: 1rem;
+                margin-bottom: 0.5rem;
+            }
+
+            .nav-links {
+                gap: 0.5rem;
+                font-size: 0.75rem;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            .container {
+                padding: 0.75rem;
+            }
+
+            .hero {
+                padding: 1.5rem 0.75rem;
+            }
+
+            .hero h1 {
+                font-size: 1.5rem;
+                margin-bottom: 0.5rem;
+            }
+
+            .hero p {
+                font-size: 0.9rem;
+                margin-bottom: 1rem;
+            }
+
+            .btn {
+                padding: 0.6rem 1.5rem;
+                font-size: 0.9rem;
+            }
+
+            .section {
+                margin: 1rem 0;
+                padding: 1rem;
+            }
+
+            .section h2 {
+                font-size: 1.2rem;
+                margin-bottom: 0.75rem;
+            }
+
+            .offer-content {
+                padding: 1rem;
+                max-width: 95%;
+                width: 95%;
+            }
+
+            .offer-content h2 {
+                font-size: 1.2rem;
+            }
+
+            .offer-content .price {
+                font-size: 1.5rem;
+            }
+
+            /* Ensure modals work on mobile */
+            .offer-modal {
+                display: none;
+            }
+
+            .offer-modal.active {
+                display: flex !important;
+                justify-content: center;
+                align-items: center;
+                z-index: 10000;
+            }
+
+            #phoneModal.active,
+            #offerModal.active {
+                display: flex !important;
+            }
+
+            .offer-content ul {
+                font-size: 0.9rem;
+            }
+
+            .close-offer {
+                font-size: 1.5rem;
+                width: 30px;
+                height: 30px;
+            }
+
+            .project-card {
+                padding: 1rem;
+            }
+
+            footer {
+                padding: 1rem;
+                font-size: 0.9rem;
+            }
+
+            /* Show all content immediately on mobile but keep animations */
+            .reveal {
+                opacity: 1;
+                transform: translateY(0);
+                transition: all 0.25s ease-out;
+            }
+
+            .reveal.active {
+                animation: mobileReveal 0.25s ease-out;
+            }
+
+            @keyframes mobileReveal {
+                from {
+                    opacity: 0.95;
+                    transform: translateY(5px);
+                }
+                to {
+                    opacity: 1;
+                    transform: translateY(0);
+                }
+            }
+
+            /* Disable parallax on mobile for better performance */
+            .hero::before {
+                animation: none;
+            }
+
+            /* Remove scroll animations for projects and contact sections */
+            #projects.reveal, #contact.reveal, #projects .reveal, #contact .reveal {
+                animation: none !important;
+                transition: none !important;
+            }
+
+            #projects.reveal.active, #contact.reveal.active, #projects .reveal.active, #contact .reveal.active {
+                animation: none !important;
+            }
+
+            /* Remove scroll animations for projects and contact sections */
+            #projects.reveal, #contact.reveal, #projects .reveal, #contact .reveal {
+                animation: none !important;
+                transition: none !important;
+            }
+
+            #projects.reveal.active, #contact.reveal.active, #projects .reveal.active, #contact .reveal.active {
+                animation: none !important;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">Gabriel</div>
+            <ul class="nav-links">
+                <li><a href="#home">Acasă</a></li>
+                <li><a href="#about">Despre</a></li>
+                <li><a href="#projects">Proiecte</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section class="hero" id="home">
+        <h1>Service și Instalare</h1>
+        <p>Sisteme securitate Camere Cctv & LPR Sisteme parcare Porti si usi Automate</p>
+        <button class="btn" onclick="scrollToSection('projects')">Vezi Lucrările Mele</button>
+    </section>
+
+    <div class="container">
+        <section class="section" id="about">
+            <h2>Despre Mine</h2>
+            <p>Salut! Sunt Gabriel, specializat în instalarea și service-ul sistemelor de securitate. Cu experiență în camere CCTV, sisteme de parcare, porți și uși automate, aduc soluții profesionale pentru siguranța ta.</p>
+        </section>
+
+        <section class="section" id="projects" style="opacity: 1; transform: none;">
+            <h2>Proiectele Mele</h2>
+            <div class="projects">
+                <div class="project-card">
+                    <img src="ss.webp" alt="Sistem CCTV" loading="lazy" style="width: 100%; height: auto; border-radius: 5px; margin-bottom: 1rem;">
+                    <h3>Sistem CCTV HD/4K</h3>
+                    <p>Instalare profesională sistem supraveghere cu camere HD/4K, stocare cloud și acces remote.</p>
+                </div>
+                <div class="project-card">
+                    <img src="FA.jpg" alt="Uși Automate" loading="lazy" style="width: 100%; height: 50%; border-radius: 5px; margin-bottom: 1rem; object-fit: cover;">
+                    <h3>Uși Automate Inteligente</h3>
+                    <p>Automatizare uși cu control acces biometric, carduri RFID și acces mobil.</p>
+                </div>
+                <div class="project-card">
+                    <img src="ab.jpg" alt="Sistem Parcare" loading="lazy" style="width: 100%; height: auto; border-radius: 5px; margin-bottom: 1rem; object-fit: cover;">
+                    <h3>Sistem Parcare Inteligent</h3>
+                    <p>Management parcare complet cu LPR, bariere automate și plăți contactless.</p>
+                </div>
+                <div class="project-card">
+                    <img src="pb.png" alt="Porți Automate" loading="lazy" style="width: 100%; height: auto; border-radius: 5px; margin-bottom: 1rem; object-fit: cover;">
+                    <h3>Porți Automate Premium</h3>
+                    <p>Instalare motoare premium pentru porți culisante/batante cu siguranță maximă.</p>
+                </div>
+                <div class="project-card">
+                    <img src="pf.jpg" alt="Contract Mentenanță" loading="lazy" style="width: 100%; height: auto; border-radius: 5px; margin-bottom: 1rem; object-fit: cover;">
+                    <h3>Contract Mentenanță</h3>
+                    <p>Întreținere preventivă și service prioritar pentru toate sistemele de securitate.</p>
+                </div>
+                <div class="project-card">
+                    <img src="ss.webp" alt="Sistem Alarmă" loading="lazy" style="width: 100%; height: auto; border-radius: 5px; margin-bottom: 1rem; object-fit: cover;">
+                    <h3>Sistem Alarmă Antiefracție</h3>
+                    <p>Protecție completă cu senzori wireless, sirenă și notificări instant pe mobil.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="section" id="contact" style="opacity: 1; transform: none;">
+            <h2>Contactează-mă</h2>
+            <p>Ai un proiect în minte? Contactează-mă pentru o consultație gratuită!</p>
+            <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
+                <a href="mail.html" class="btn">✉️ Trimite Email</a>
+                <a href="tel:+40722551162" class="btn" id="phoneButton">📞 Telefonic</a>
+            </div>
+            <div id="phoneInfo" style="display: none; margin-top: 1.5rem; padding: 1.5rem; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border-radius: 15px; box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4); color: white; text-align: center;">
+                <h3 style="margin-bottom: 1rem; font-size: 1.5rem;">📞 Contactează-mă Telefonic</h3>
+                <p style="font-size: 1.8rem; font-weight: bold; letter-spacing: 2px; margin: 1rem 0;">0040 722 551 162</p>
+                <p style="font-size: 0.9rem; opacity: 0.9;">Disponibil Luni - Vineri: 9:00 - 18:00</p>
+                <a href="tel:+40722551162" class="btn" style="margin-top: 1rem; background: white; color: #667eea; border: 2px solid white;">Apelează Acum</a>
+            </div>
+        </section>
+    </div>
+
+    <footer>
+        <p>&copy; 2026 Gabriel. Toate drepturile rezervate.</p>
+    </footer>
+
+    <!-- Offer Modal -->
+    <div class="offer-modal" id="offerModal">
+        <div class="offer-content">
+            <span class="close-offer" onclick="closeOffer()">&times;</span>
+            <h2 id="offerTitle">Ofertă Specială!</h2>
+            <p id="offerSubtitle" style="color: #764ba2; font-size: 0.95rem; font-weight: 600; margin: 0.5rem 0 1rem 0;"></p>
+            <div class="price" id="offerPrice">299€</div>
+            <p id="offerDescription">Pachet instalare profesională</p>
+            <ul id="offerFeatures">
+                <li>Instalare Profesională</li>
+                <li>Suport 24/7</li>
+                <li>Garanție 1 An</li>
+                <li>Consultație Gratuită</li>
+            </ul>
+            <button class="offer-btn" id="getOfferBtn">Obține Oferta Acum!</button>
+        </div>
+    </div>
+
+    <script src="gabriel.js" defer></script>
+</body>
+</html>
